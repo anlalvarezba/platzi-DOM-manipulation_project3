@@ -49,9 +49,26 @@
           pages using GitHub Actions. Learn more:
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime placeat labore provident quidem illum, aperiam voluptate nulla, iusto, animi fugiat esse totam. Id odit eum sapiente, dolore voluptas modi debitis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, repudiandae!
         </p>
-        <div class="container">
-          <video src="%PUBLIC_URL%/ColombianFriends-2022.mp4" id="video"></video>
-        </div>
+        <figure id="videoContainer">
+          <video controls id="video" preload="metadata">
+            <source  src="%PUBLIC_URL%/ColombianFriends-2022.mp4"  type="video/mp4">
+            <source  src="%PUBLIC_URL%/ColombianFriends-2022.webm" type="video/webm">
+            <source  src="%PUBLIC_URL%/ColombianFriends-2022.ogg"  type="video/ogg">
+          </video>
+          <ul id="video-controls" class="controls">
+            <li><button id="playpause" type="button">Play/Pause</button></li>
+            <li><button id="stop" type="button">Stop</button></li>
+            <li><button class="progress">
+              <progress id="progress" value="0" min="0">
+                <span id="progress-bar"></span>
+              </progress>
+            </button></li>
+            <li><button id="mute" type="button">Mute/Unmute</button></li>
+            <li><button id="volinc" type="button">Vol+</button></li>
+            <li><button id="voldec" type="button">Vol-</button></li>
+            <li><button id="fs" type="button">Fullscreen</button></li>
+          </ul>
+        </figure>
         <div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id perferendis quaerat odio illo magnam laboriosam culpa fugit, aspernatur, ab nemo corporis, aliquam velit nisi. Quas natus perspiciatis corporis nisi atque suscipit? Reiciendis corrupti modi nisi fugiat excepturi sequi laborum pariatur nostrum aliquid ipsam, eveniet nobis esse voluptatibus eaque a perferendis! Fuga corrupti, expedita dignissimos cupiditate, necessitatibus repellendus accusamus voluptatibus delectus nulla velit numquam officia quaerat autem inventore tempora nemo pariatur temporibus omnis minus aspernatur sint doloribus dolores! Repellendus aliquam eligendi iure enim quibusdam deleniti iusto consectetur eaque quidem, pariatur voluptates, delectus nulla aperiam rem incidunt. Provident assumenda tenetur sint perferendis?
         </p></div>
       </div>
