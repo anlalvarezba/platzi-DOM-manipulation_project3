@@ -10,7 +10,9 @@ if(supportsVideo){
     const videoControls = document.getElementById('video-controls');
 
     video.controls = false;
-    videoControls.style.display = 'block';
+    // videoControls.style.display = 'block';
+    videoControls.style.display = 'inline-flex';
+
 
     var playpause = document.getElementById('playpause');
     var stop = document.getElementById('stop');
@@ -20,6 +22,11 @@ if(supportsVideo){
     var volinc = document.getElementById('volinc');
     var voldec = document.getElementById('voldec');
     var fullScreen = document.getElementById('fs');
+
+
+    // playpause.style.backgroundImage = "url('_dist_/LightDarkIcons.jpg')"
+    // playpause.style.backgroundImage = "url('_dist_/photo.png')"
+
 
     var fullScreenEnabled = !!(document.fullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled || document.webkitSupportFullscreen || document.webkitFullscreenEnabled || document.createElement('video').webkitRequestFullScreen);
     console.log('FullScreenEnabled:', fullScreenEnabled);
@@ -33,6 +40,7 @@ if(supportsVideo){
     voldec.addEventListener('click', () => { alterVolume('-') });
     volinc.addEventListener('click', () => { alterVolume('+') });
     fullScreen.addEventListener('click', handleFullScreen);
+    
 
     video.addEventListener('loadedmetadata', function(){
         progress.setAttribute('max', video.duration);

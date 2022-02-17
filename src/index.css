@@ -3,7 +3,66 @@
 @import 'tailwindcss/dist/utilities.css';
 
 .controls {
-    display: none;
+    /* display: none; */
     list-style-type: none;
-    float: left;
+    /* float: left; */
+}
+
+/* Para pasar al js: */
+
+.controls {
+    width: 100%;
+    height: auto;
+}
+.li {
+    width: 32px;
+    height: 32px;
+}
+.progressli {
+    width: calc( 100% - 192px);
+    height: 32px;
+}
+.progress, progress {
+    width: 100%;
+}
+.playpause, .stop, .mute, .increase, .decrease, .fullscreen {
+    width: 100%;
+    height: 100%;
+    background-image: url('LightDarkIcons.jpg');
+    background-size: 1400%;
+    background-repeat: no-repeat;
+    background-origin: border-box;
+
+    /* playpause.style.backgroundImage = "url('_dist_/LightDarkIcons.jpg')"
+    playpause.style.backgroundImage = "url('_dist_/photo.png')" */
+}
+.playpause {
+    background-position: -298px -45px; /* -390px -45px; posicion del pause*/
+}
+.stop {
+    background-position: -344px -96px;
+}
+.mute {
+    background-position: -387px -96px; 
+}
+.increase, .decrease {
+    color: white;
+    background-position: -298px 0px;
+    font-size: 35px;
+    line-height: 5px;
+}
+
+.progress {
+    height: 100%;
+    background-color: #262626;
+    padding-top: 6px;
+}
+
+
+figure[data-fullscreen="false"] .fullscreen, .fullscreen {
+        background-position: -298px -148px;
+}
+
+figure[data-fullscreen="true"] .fullscreen {
+    background-position: -252px -148px;
 }
