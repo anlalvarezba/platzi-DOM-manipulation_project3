@@ -10,9 +10,7 @@ if(supportsVideo){
     const videoControls = document.getElementById('video-controls');
 
     video.controls = false;
-    // videoControls.style.display = 'block';
-    videoControls.style.display = 'inline-flex';
-
+    videoControls.style.display = 'inline-flex'; //CREAR LOS CONTROLES DESDE JS NO EN HTML
 
     var playpause = document.getElementById('playpause');
     var stop = document.getElementById('stop');
@@ -23,7 +21,7 @@ if(supportsVideo){
     var voldec = document.getElementById('voldec');
     var fullScreen = document.getElementById('fs');
 
-
+    // Para poner la imagen del boton play desde js:
     // playpause.style.backgroundImage = "url('_dist_/LightDarkIcons.jpg')"
     // playpause.style.backgroundImage = "url('_dist_/photo.png')"
 
@@ -40,7 +38,12 @@ if(supportsVideo){
     voldec.addEventListener('click', () => { alterVolume('-') });
     volinc.addEventListener('click', () => { alterVolume('+') });
     fullScreen.addEventListener('click', handleFullScreen);
-    
+
+
+    video.addEventListener('click', handlePlayPause);
+    video.addEventListener('click', setClicked);
+    playpause.addEventListener('click', setClicked)
+
 
     video.addEventListener('loadedmetadata', function(){
         progress.setAttribute('max', video.duration);
@@ -71,16 +74,22 @@ if(supportsVideo){
         } else {
             video.pause();
         }
+        setVideoState(video.paused);
     }
 
     function handleStop(){
         video.pause();
         video.currentTime = 0; 
         progress.value = 0;
+        setVideoState(video.paused);
     }
 
+
     function handleMuteUnmute(){
-        video.muted = !video.muted;
+        if(video.volume >= 0.1){
+            video.muted = !video.muted;
+            setVolumeAttribute(video.muted);
+        }
     }
 
     function alterVolume(value){
@@ -88,14 +97,20 @@ if(supportsVideo){
         if(value === '-'){
             if(currentVolume > 0){
                 video.volume -= 0.1;
-                console.log(video.volume);
             }
         }
         else if(value === '+'){
             if(currentVolume < 1){
                 video.volume += 0.1;
-                console.log(video.volume);
             }
+        }
+        video.muted=false;
+
+        if(video.volume < 0.1){ 
+            setVolumeAttribute(true);
+        }
+        else if(video.volume > 0.1){
+            setVolumeAttribute(false);
         }
     }
 
@@ -106,6 +121,7 @@ if(supportsVideo){
             else if(document.webkitCancelFullScreen){ document.webkitCancelFullScreen()}
             else if(document.msExitFullscreen){ document.msExitFullscreen()}
             setFullScreenData(false);
+            clearTimeout(timer);
         }
         else {
             if(videoContainer.requestFullscreen){videoContainer.requestFullscreen()}
@@ -113,8 +129,38 @@ if(supportsVideo){
             else if(videoContainer.webkitRequestFullScreen){videoContainer.webkitRequestFullScreen()}
             else if(videoContainer.msRequestFullScreen){ videoContainer.msRequestFullScreen()}
             setFullScreenData(true);
+            
+            fixOrientation();
+
+            video.addEventListener('mousemove', opacityControls);
         }
     }
+
+
+
+    var timer;
+    function opacityControls() {
+        if(isFullScreen()){
+        clearTimeout(timer);
+        videoControls.style.opacity = '1';
+        timer = setTimeout(() => {
+            videoControls.style.opacity = '0';
+        }, 4000);
+        }
+    }
+
+
+
+    function fixOrientation(){
+        screen.orientation.lock("landscape")
+            .then(
+                console.log('screen orientation: ', screen.orientation.type)
+            )
+            .catch(
+                error => console.log('Error: ', error)
+            )
+    }
+    
 
     function isFullScreen(){
         return !!(document.fullscreenElement || document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement || document.fullscreenElement);
@@ -123,6 +169,57 @@ if(supportsVideo){
     function setFullScreenData(state){
         videoContainer.setAttribute('data-fullscreen', !!state);
     }
+
+    function setVideoState(state){
+        videoContainer.setAttribute('data-videopaused', !!state);
+    }
+    //Para cuando se tengan tres simbolos de volumen:
+    // function setVolumeAttribute(volumeMuted){
+    //     if(!!volumeMuted){
+    //         videoContainer.setAttribute("data-vol","silence");
+    //     }
+    //     else{
+    //         if(video.volume <= 0.4){
+    //             videoContainer.setAttribute("data-vol","low");
+    //         }
+    //         else{
+    //             videoContainer.setAttribute("data-vol","high");
+    //         }
+    //     }
+    // }
+
+    function setVolumeAttribute(volumeMuted){
+        videoContainer.setAttribute('data-muted', !!volumeMuted);
+    }
+
+
+    var containerClicked;
+    function setClicked(){
+        if(video.paused){
+            containerClicked = 'pause';
+        } else {
+            containerClicked = 'play';
+        }
+    }
+
+    let options = {
+        root: null,
+        thereshold: 0.25,
+    }
+
+    let stopPlaying = (entries, observer) => {
+        entries.forEach(entry => {
+            if(containerClicked === 'play')
+            {
+                handlePlayPause()
+            }
+        });
+    }
+
+    let observer = new IntersectionObserver(stopPlaying, options);
+    let target = video;
+    observer.observe(target);
+
 
 
     document.addEventListener('fullscreenchange', () => {
@@ -137,7 +234,11 @@ if(supportsVideo){
         setFullScreenData(!!document.msFullscreenElement);
     });
 
+
+
+
     console.log('Video is supported.');
+    console.log('window:', window);
 }
 
 // const textCenter = document.querySelector('.text-center');

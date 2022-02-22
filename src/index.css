@@ -2,29 +2,51 @@
 @import 'tailwindcss/dist/components.css';
 @import 'tailwindcss/dist/utilities.css';
 
+video {
+    width: 100%;
+}
 .controls {
-    /* display: none; */
+    display: none;
     list-style-type: none;
-    /* float: left; */
 }
 
-/* Para pasar al js: */
+button:focus {
+    outline: none;
+}
 
 .controls {
     width: 100%;
-    height: auto;
+    height: 35px;
+    background-color: #4cb5fb;
 }
 .li {
     width: 32px;
-    height: 32px;
+    height: 100%;
+}
+.li:active {
+    opacity: 0.5;
 }
 .progressli {
     width: calc( 100% - 192px);
-    height: 32px;
+    height: 100%;
 }
-.progress, progress {
+.progress, progress, .progress-bar {
     width: 100%;
 }
+.progressli:active, progress:active, .progress-bar:active {
+    opacity: 1;
+}
+video:hover {
+    cursor: pointer;
+}
+progress::-moz-progress-bar { background: #4cb5fb; }
+progress::-webkit-progress-value { background: #4cb5fb; }
+progress { color: #4cb5fb; } */
+
+.progress-bar {
+    background-color: #4cb5fb;
+}
+
 .playpause, .stop, .mute, .increase, .decrease, .fullscreen {
     width: 100%;
     height: 100%;
@@ -32,26 +54,42 @@
     background-size: 1400%;
     background-repeat: no-repeat;
     background-origin: border-box;
-
-    /* playpause.style.backgroundImage = "url('_dist_/LightDarkIcons.jpg')"
-    playpause.style.backgroundImage = "url('_dist_/photo.png')" */
 }
-.playpause {
-    background-position: -298px -45px; /* -390px -45px; posicion del pause*/
+
+figure[data-videopaused= "true"] .playpause, .playpause {
+    background-position: -298px -43px; 
+}
+figure[data-videopaused= "false"] .playpause {
+    background-position: -390px -43px; 
 }
 .stop {
-    background-position: -344px -96px;
+    background-position: -344px -94px;
 }
-.mute {
+
+/*Para cuando se tengan 3 simbolos de volumen*/
+/* figure[data-vol='silence'] .mute {
     background-position: -387px -96px; 
 }
+figure[data-vol='low'] .mute {
+    background-position: -387px -96px; 
+}
+figure[data-vol='high'] .mute {
+    background-position: -387px -96px; 
+} */
+
+figure[data-muted="true"] .mute{
+    background-position: -387px -146px; 
+}
+figure[data-muted="false"] .mute, .mute{
+    background-position: -387px -95px; 
+}
+
 .increase, .decrease {
     color: white;
     background-position: -298px 0px;
     font-size: 35px;
-    line-height: 5px;
+    line-height: 0px;
 }
-
 .progress {
     height: 100%;
     background-color: #262626;
@@ -60,9 +98,28 @@
 
 
 figure[data-fullscreen="false"] .fullscreen, .fullscreen {
-        background-position: -298px -148px;
+        background-position: -298px -145px;
 }
 
 figure[data-fullscreen="true"] .fullscreen {
-    background-position: -252px -148px;
+    background-position: -252px -145px;
 }
+figure[data-fullscreen="true"] .controls {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+figure[data-fullscreen="true"] .controls {
+    opacity: 0;
+}
+
+figure[data-fullscreen="false"] .controls {
+    opacity: 1;
+}
+
+figure[data-fullscreen="true"] .controls:hover {
+    opacity: 1;
+}
+
