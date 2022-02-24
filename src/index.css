@@ -36,9 +36,7 @@ button:focus {
 .progressli:active, progress:active, .progress-bar:active {
     opacity: 1;
 }
-video:hover {
-    cursor: pointer;
-}
+
 progress::-moz-progress-bar { background: #4cb5fb; }
 progress::-webkit-progress-value { background: #4cb5fb; }
 progress { color: #4cb5fb; } */
