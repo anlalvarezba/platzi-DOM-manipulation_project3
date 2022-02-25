@@ -7,19 +7,78 @@ var supportsVideo = !!document.createElement('video').canPlayType;
 if(supportsVideo){
     const videoContainer = document.getElementById('videoContainer');
     const video = document.getElementById('video');
-    const videoControls = document.getElementById('video-controls');
 
     video.controls = false;
-    videoControls.style.display = 'inline-flex'; //CREAR LOS CONTROLES DESDE JS NO EN HTML
 
-    var playpause = document.getElementById('playpause');
-    var stop = document.getElementById('stop');
-    var progress = document.getElementById('progress');
-    var progressBar = document.getElementById('progress-bar');
-    var mute = document.getElementById('mute');
-    var volinc = document.getElementById('volinc');
-    var voldec = document.getElementById('voldec');
-    var fullScreen = document.getElementById('fs');
+    const videoControls = document.createElement("ul");
+    videoControls.className = "controls";
+
+    videoContainer.appendChild(videoControls);
+
+
+    const li1 = document.createElement("li");
+    const li2 = document.createElement("li");
+    const li3 = document.createElement("li");
+    const li4 = document.createElement("li");
+    const li5 = document.createElement("li");
+    const li6 = document.createElement("li");
+    const li7 = document.createElement("li");
+
+    li1.className =  "li"; 
+    li2.className =  "li"; 
+    li3.className =  "progressli"; 
+    li4.className =  "li"; 
+    li5.className =  "li"; 
+    li6.className =  "li"; 
+    li7.className =  "li"; 
+
+    videoControls.append(li1, li2, li3, li4, li5, li6, li7);
+    
+    const playpause   = document.createElement("button");
+    const stop        = document.createElement("button");
+    const progressDiv    = document.createElement("div");
+    const mute        = document.createElement("button");
+    const volinc      = document.createElement("button");
+    const voldec      = document.createElement("button");
+    const fullScreen  = document.createElement("button");
+
+    playpause.className     = "playpause";
+    stop.className          = "stop";
+    progressDiv.className   = "progress";
+    mute.className          = "mute";
+    volinc.className        = "increase";
+    voldec.className        = "decrease";
+    fullScreen.className    = "fullscreen";
+
+    li1.appendChild(playpause  );
+    li2.appendChild(stop       );
+    li3.appendChild(progressDiv);
+    li4.appendChild(mute       );
+    li5.appendChild(volinc     );
+    li6.appendChild(voldec     );
+    li7.appendChild(fullScreen );
+
+
+    playpause.type      = "button";
+    stop.type           = "button";
+    progressDiv.type    = "button";
+    mute.type           = "button";
+    volinc.type         = "button";
+    voldec.type         = "button";
+    fullScreen.type     = "button";
+
+    const progress    = document.createElement("progress");
+    const progressBar = document.createElement("span");
+    progressBar.className = "progress-bar";
+
+    progressDiv.append(progress, progressBar);
+    progress.value = "0";
+    progress.min = "0";
+
+    volinc.textContent = "+";
+    voldec.textContent = "-";
+
+    videoControls.style.display = 'inline-flex';
 
     // Para poner la imagen del boton play desde js:
     // playpause.style.backgroundImage = "url('_dist_/LightDarkIcons.jpg')"

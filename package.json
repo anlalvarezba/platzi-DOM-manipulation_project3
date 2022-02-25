@@ -1,5 +1,6 @@
 {
-  "scripts": {
+  "homepage": "https://anlalvarezba.github.io/platzi-DOM-manipulation_project3",
+  "scripts": {     
     "start": "snowpack dev",
     "build": "snowpack build",
     "format": "prettier --write \"src/**/*.js\"",
