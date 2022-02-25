@@ -5,6 +5,6 @@ module.exports = {
     src: '/_dist_',
   },
   buildOptions: {
-    baseUrl: '',
+    baseUrl: 'https://anlalvarezba.github.io/platzi-DOM-manipulation_project3',
   },
 }
