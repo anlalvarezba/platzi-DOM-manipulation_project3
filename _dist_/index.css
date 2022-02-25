@@ -84,7 +84,8 @@ figure[data-muted="false"] .mute, .mute{
 
 .increase, .decrease {
     color: white;
-    background-position: -298px 0px;
+    /* background-position: -298px 0px; */
+    background-color: #262626;    
     font-size: 35px;
     line-height: 0px;
 }
